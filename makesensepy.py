@@ -6,6 +6,8 @@ address = "http://localhost:8888/apicontroller.php"
 authenticationCode = "1"
 addSensorCode = "10"
 addReadingCode  = "20"
+addOntologyCode = "30"
+addNetworkCode = "40"
 
 class AuthenticationException(Exception):
     def __init__(self, value):
@@ -76,7 +78,34 @@ class MakeSenseConnection:
 		elif r.text == "23000":
 			raise MakeSenseDBException("Data at time "+timestamp+" already exists for sensor with id "+sensorId)
 
+	def addOntology(self, name, description, axis):
+		if len(name)>30:
+			raise DataException("Ontology name is too long (Max 30 chars)")	
+		if len(description)>200:
+			raise DataException("Ontology description is too long (Max 200 chars)")		
+		if len(axis)>30:
+			raise DataException("Ontology axis label is too long (Max 30 chars)")						
+		payload = {'requestCode':addOntologyCode, 'username': self.username, 'id':self.id, 'name':name, 'description':description, 'axis':axis}
+		r = requests.post(address, data=payload)
+		if r.text[:4] == "1001":
+			raise AuthenticationException("username or API access id is not valid")
+		else:
+			return r.text
+
+	def addNetwork(self, netId, name="", description=""):
+		if len(netId)>20:
+			raise DataException("Network id is too long (Max 20 chars)")
+		if len(name)>30:
+			raise DataException("Network name is too long (Max 40 chars)")
+		if len(description)>30:
+			raise DataException("Network description is too long (Max 200 chars)")
+		payload = {'requestCode':addNetworkCode, 'username': self.username, 'id':self.id, 'netId':netId, 'name':name, 'description':description}
+		r = requests.post(address, data=payload)
+		print r.text
+		if r.text[:4] == "1001":
+			raise AuthenticationException("username or API access id is not valid")
+		elif r.text == "23000":
+			raise MakeSenseDBException("A Network with id "+netId+" already exists on your account")
 
 conn = getConnection("oscar",11)
-conn.addReading("robkera","112", "121341");
-#addSensor("thing","thing2","12")
+conn.addNetwork("thisisanid1", "robkera","network description :)")
