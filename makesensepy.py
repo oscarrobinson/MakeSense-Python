@@ -1,6 +1,6 @@
 import requests
 
-address = "http://localhost:8888/apicontroller.php"
+address = "http://uclteam10.azurewebsites.net/apicontroller.php"
 
 #REQUEST CODES
 authenticationCode = "1"
@@ -101,11 +101,13 @@ class MakeSenseConnection:
 			raise DataException("Network description is too long (Max 200 chars)")
 		payload = {'requestCode':addNetworkCode, 'username': self.username, 'id':self.id, 'netId':netId, 'name':name, 'description':description}
 		r = requests.post(address, data=payload)
-		print r.text
 		if r.text[:4] == "1001":
 			raise AuthenticationException("username or API access id is not valid")
 		elif r.text == "23000":
 			raise MakeSenseDBException("A Network with id "+netId+" already exists on your account")
 
 conn = getConnection("oscar",11)
-conn.addNetwork("thisisanid1", "robkera","network description :)")
+conn.addNetwork("NetId", "sdfsdf", "robkera")
+
+
+
