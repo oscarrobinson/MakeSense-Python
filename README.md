@@ -59,7 +59,7 @@ conn.addSensor("234234234af", "13124124", "2")
 
 ```2``` is the ontology code for the sensor (i.e what type of data it is sending).
 
-If a sensor with the given sensorId already exists in the network with the given networkId, a ```MakeSenseDBException``` is thrown.
+If a sensor with the given sensorId already exists in the system, a ```MakeSenseDBException``` is thrown.
 
 You can also add sensors with a name:
 ```python
@@ -69,7 +69,44 @@ and with a description:
 ```python
 conn.addSensor("234234234af", "13124124", "2", "Sensor Name", "Temperature Sensor in room 1.21")
 ```
+####Adding a Reading
+```void :: addReading(string: sensorId, string: reading, string: timestamp)```
 
+To add a reading you call
+```python
+conn.addReading("234234234af", "1234.12", "1397235431")
+```
+```234234234af``` is the id of the sensor for which you are adding a reading.
+
+```1234.12``` is the reading you are adding for that sensor.
+
+```1397235431``` is the timestamp for the data in UNIX time format.
+
+**_Timestamps MUST be in UNIX time format otherwise your data will be displayed incorrectly on the MakeSense site_**
+
+If you attempt to add a reading for a given sensorId for a time where there is already a reading, a ```MakeSenseDBException``` is thrown.
+
+####Adding an Ontology
+```string :: addOntology(string: name, string: description, string: axis)```
+Ontology codes allow the MakeSense to automatically render your graphs on the site with proper axis labels etc.
+There are a number of ontologies already available but you may want to add your own, you can do so with this method.
+
+To add an ontology:
+```python
+ontologyCode = conn.addOntology("distance", "distance the thing has travelled in centimetres", "distance/cm")
+```
+```distance``` is the name of your ontology.
+
+```distance the thing has travelled in centimetres``` if a brief description of your ontology.
+
+```distance/cm``` is the axis label that will be used on the graph of any data using this ontology.
+
+the method returns the id code for the ontology, if the ontology already exists, the code of the existing ontology is returned.  In this example, the code is now stored as a string in the ```ontologyCode``` variable. 
+
+So you could now use this ontology in your own code e.g adding a sensor:
+```python
+conn.addSensor("thisisasensorid", "thisisanetworkid", ontologyCode)
+```
 
 
 
