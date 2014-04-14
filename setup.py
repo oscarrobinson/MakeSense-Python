@@ -9,5 +9,5 @@ setup(name='MakeSensePy',
       author_email='oscar@make-sense.co.uk',
       url='http://www.make-sense.co.uk',
       py_modules = ['makesensepy'],
-      setup_requires = ['requests>=2.3']
+      require = ['requests>=2.3']
      )
