@@ -29,6 +29,7 @@ class DataException(Exception):
 
 
 def getConnection(username, apiId):
+	"""Returns a MakeSense Database connection object allowing you to add data to the database"""
 	return MakeSenseConnection(username, apiId)
 
 
@@ -43,6 +44,7 @@ class MakeSenseConnection:
 			self.id = apiId
 
 	def addSensor(self,sensorId, netId, sensorOnt, sensorName="", sensorDescription=""):
+		"""Allows you to add a sensor to the database"""
 		if len(sensorId)>30:
 			raise DataException("SensorId is too long (Max 30 chars)")
 		if len(netId)>20:
@@ -63,6 +65,7 @@ class MakeSenseConnection:
 			raise AuthenticationException("username or API access id is not valid")
 
 	def addReading(self, sensorId, reading, timestamp):
+		"""Allows you to add a reading for a given sensor to the database"""
 		if len(sensorId)>30:
 			raise DataException("SensorId is too long (Max 30 chars)")
 		if len(reading)>40:
@@ -79,6 +82,7 @@ class MakeSenseConnection:
 			raise MakeSenseDBException("Data at time "+timestamp+" already exists for sensor with id "+sensorId)
 
 	def addOntology(self, name, description, axis):
+		"""Allows you to add an ontology to the database, returns the ontology id number"""
 		if len(name)>30:
 			raise DataException("Ontology name is too long (Max 30 chars)")	
 		if len(description)>200:
@@ -93,6 +97,7 @@ class MakeSenseConnection:
 			return r.text
 
 	def addNetwork(self, netId, name="", description=""):
+		"""Allows you to add a sensor network to the database"""
 		if len(netId)>20:
 			raise DataException("Network id is too long (Max 20 chars)")
 		if len(name)>30:
@@ -105,9 +110,4 @@ class MakeSenseConnection:
 			raise AuthenticationException("username or API access id is not valid")
 		elif r.text == "23000":
 			raise MakeSenseDBException("A Network with id "+netId+" already exists on your account")
-
-conn = getConnection("oscar",11)
-conn.addNetwork("NetId", "sdfsdf", "robkera")
-
-
 
