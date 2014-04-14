@@ -3,8 +3,26 @@
 
 Python module for adding data to the makesense platform
 
+##Installing makesensepy
+
+**To use makesensepy you must first have the [requests](http://docs.python-requests.org/en/latest/) module installed**
+
+Download the files either by downloading the .zip from [here](https://github.com/scarrobin/MakeSense-Python) or by typing
+```git clone https://github.com/scarrobin/MakeSense-Python.git``` in the terminal
+
+then simply unzip and navigate to the MakeSense-Python folder and type
+```python setup.py install```
+
+The makesensepy module is now installed on your system
+
 
 ##Using makesensepy
+
+Before using makesensepy, remember to
+```python
+import makesensepy
+```
+at the top of your python file
 
 ###Getting a connection
 
@@ -12,7 +30,7 @@ Python module for adding data to the makesense platform
 
 To create a connection to the MakeSense database, you simply call
 ```python
-conn = getConnection(username, 1)
+conn = makesensepy.getConnection(username, "1")
 ```
 
 Where username is your MakeSense username and the number (1 in this example) is your API ID which you find on your MakeSense account
