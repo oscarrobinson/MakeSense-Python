@@ -7,7 +7,7 @@ Python module for adding data to the makesense platform
 
 **To use makesensepy you must first have the [requests](http://docs.python-requests.org/en/latest/) module installed**
 
-Download the files either by downloading the .zip from [here](https://github.com/scarrobin/MakeSense-Python) or by typing
+Download the files either by downloading the .zip from [here](https://github.com/scarrobin/MakeSense-Python/archive/master.zip) or by typing
 ```git clone https://github.com/scarrobin/MakeSense-Python.git``` in the terminal
 
 then simply unzip and navigate to the MakeSense-Python folder and type
