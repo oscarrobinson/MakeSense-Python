@@ -1,6 +1,6 @@
 import requests
 
-address = "http://uclteam10.azurewebsites.net/apicontroller.php"
+address = "http://ec2-54-76-115-0.eu-west-1.compute.amazonaws.com/apicontroller.php"
 
 #REQUEST CODES
 authenticationCode = "1"
